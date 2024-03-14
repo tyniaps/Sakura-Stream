@@ -3,5 +3,14 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh; 
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-image: url('/mobilesize.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }

@@ -18,9 +18,9 @@ const AppNavbar = () => {
                         <img
                             src={sakuraIcon}
                             alt="Sakura Stream"
-                            className="w-12 h-12 md:w-24 md:h-24 rounded-full"
+                            className="w-8 h-8 sm:w-12 sm:h-12 md:w-24 md:h-24 rounded-full"
                         />
-                        <Link to="/" className="text-xl font-bold ml-2">SakuraStream</Link>
+                        <Link to="/" className="text-lg sm:text-xl md:text-2xl font-bold ml-2">SakuraStream</Link>
                     </div>
                     <div>
                         {Auth.loggedIn() ? (
