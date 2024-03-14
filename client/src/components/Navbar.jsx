@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 import Auth from '../utils/auth';
+import sakuraIcon from '/sakuraicon.png';
+
 
 const AppNavbar = () => {
     const [showModal, setShowModal] = useState(false);
@@ -10,14 +12,21 @@ const AppNavbar = () => {
 
     return (
         <>
-            <nav className="bg-gray-800 text-white p-4">
+            <nav className="bg-pink-500 bg-opacity-40 text-white p-4">
                 <div className="container mx-auto flex justify-between items-center">
-                    <Link to="/" className="text-xl font-bold">SakuraStream</Link>
+                    <div className="flex items-center">
+                        <img
+                            src={sakuraIcon}
+                            alt="Sakura Stream"
+                            className="w-8 h-8 sm:w-12 sm:h-12 md:w-24 md:h-24 rounded-full"
+                        />
+                        <Link to="/" className="text-lg sm:text-xl md:text-2xl font-bold ml-2">SakuraStream</Link>
+                    </div>
                     <div>
                         {Auth.loggedIn() ? (
-                            <button onClick={Auth.logout} className="bg-pink-500 px-3 py-2 rounded hover:bg-pink-600 mr-2">Logout</button>
+                            <button onClick={Auth.logout} className="bg-pink-700 px-3 py-2 rounded hover:bg-pink-800 mr-2">Logout</button>
                         ) : (
-                            <button onClick={() => setShowModal(true)} className="bg-blue-500 px-3 py-2 rounded hover:bg-blue-600">Login/Sign Up</button>
+                            <button onClick={() => setShowModal(true)} className="bg-pink-600 px-3 py-2 rounded hover:bg-pink-700">Login/Sign Up</button>
                         )}
                     </div>
                 </div>
@@ -44,7 +53,7 @@ const AppNavbar = () => {
                                     <SignUpForm handleModalClose={() => setShowModal(false)} />
                                 </Tab.Pane>
                             )}
-                            <button onClick={() => setShowModal(false)} className="mt-3 bg-gray-300 px-3 py-2 rounded hover:bg-gray-400">Close</button>
+                            <button onClick={() => setShowModal(false)} className="bg-pink-700 px-3 py-2 rounded hover:bg-pink-800 mr-2">Close</button>
                         </div>
                     </div>
                 </div>
