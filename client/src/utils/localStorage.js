@@ -5,7 +5,7 @@ const getSavedBookIds = () => {
     return savedAnimeIds;
   };
   export const saveAnimeIds = (animeIdArr) => {
-    if (bookIdArr.length) {
+    if (animeIdArr.length) {
       localStorage.setItem('saved_animes', JSON.stringify(animeIdArr));
     } else {
       localStorage.removeItem('saved_animes');
