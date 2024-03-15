@@ -10,14 +10,14 @@ const SearchAnime = () => {
  const [savedAnimeIds, setSavedAnimeIds] = useState(getSavedAnimeIds());
  useEffect(() => {
   const fetchAnime = async () => {
-  const options = {
-  method: 'GET',
-  url: 'https://anime-streaming.p.rapidapi.com/latest-anime',
-  headers: {
-  'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
-  'X-RapidAPI-Host': 'anime-streaming.p.rapidapi.com'
-  }
- };
+    const options = {setSavedAnimeIds,
+      method: 'GET',
+      url: 'https://anime-streaming.p.rapidapi.com/latest-anime',
+      headers: {
+        'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+        'X-RapidAPI-Host': 'anime-streaming.p.rapidapi.com'
+      }
+    };
    try {
     const response = await axios.request(options);
     setSearchedAnime(response.data); // Set anime data to state
