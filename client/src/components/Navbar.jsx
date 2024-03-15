@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoginForm from './LoginForm';
-import SignUpForm from './SignUpForm';
+import SignUpForm from './SignupForm';
 import Auth from '../utils/auth';
 import sakuraIcon from '/sakuraicon.png';
 
