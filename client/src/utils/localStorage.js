@@ -1,4 +1,4 @@
-const getSavedBookIds = () => {
+const getSavedAnimeIds = () => {
     const savedAnimeIds = localStorage.getItem('saved_animes')
       ? JSON.parse(localStorage.getItem('saved_animes'))
       : [];

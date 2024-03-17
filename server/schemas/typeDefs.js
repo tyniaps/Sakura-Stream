@@ -8,17 +8,17 @@ const typeDefs = `
 
     email: String
 
-    bookCount: Int
+    animeCount: Int
 
-    savedBooks: [Book]
+    savedAnime: [Anime]
 
   }
 
   type Book {
 
-    bookId: ID!
+    animeId: ID!
 
-    authors: [String]
+    creator: [String]
 
     description: String
 
@@ -40,11 +40,11 @@ const typeDefs = `
 
   input BookInput {
 
-    authors: [String]
+    creator: [String]
 
     description: String!
 
-    bookId: String!
+    AnimeId: String!
 
     image: String
 
@@ -66,9 +66,9 @@ const typeDefs = `
 
     addUser(username: String!, email: String!, password: String!): Auth
 
-    saveBook(bookData: BookInput!): User
+    saveAnime(animeData: AnimeInput!): User
 
-    removeBook(bookId: ID!): User
+    removeAnime(animeId: ID!): User
 
   }
 

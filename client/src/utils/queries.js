@@ -12,11 +12,11 @@ export const QUERY_ME = gql`
 
       email
 
-      savedBooks {
+      savedAnime {
 
-        bookId
+        animeId
 
-        authors
+        creator
 
         image
 
