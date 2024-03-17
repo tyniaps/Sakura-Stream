@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {placeholder} from 'tailwindcss'
+//import {placeholder} from 'tailwindcss'
 
 import { useMutation } from '@apollo/client';
 
