@@ -33,27 +33,23 @@ const AppNavbar = () => {
             </nav>
 
             {showModal && (
-                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
-                    <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-                        <div className="mt-3 text-center">
+                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center">
+                    <div className="relative bg-white p-5 border w-96 shadow-lg rounded-md">
+                        <div className="text-center">
                             <div className="flex justify-around mb-5">
                                 <button
                                     className={`font-bold ${activeTab === 'login' ? 'underline' : ''}`}
-                                    onClick={() => setActiveTab('login')}>Login</button>
+                                    onClick={() => setActiveTab('login')}>
+                                    Login
+                                </button>
                                 <button
                                     className={`font-bold ${activeTab === 'signup' ? 'underline' : ''}`}
-                                    onClick={() => setActiveTab('signup')}>Sign Up</button>
+                                    onClick={() => setActiveTab('signup')}>
+                                    Sign Up
+                                </button>
                             </div>
-                            {activeTab === 'login' ? (
-                                <Tab.Pane eventKey='login'>
-                                    <LoginForm handleModalClose={() => setShowModal(false)} />
-                                </Tab.Pane>
-                            ) : (
-                                <Tab.Pane eventKey='signup'>
-                                    <SignUpForm handleModalClose={() => setShowModal(false)} />
-                                </Tab.Pane>
-                            )}
-                            <button onClick={() => setShowModal(false)} className="bg-pink-700 px-3 py-2 rounded hover:bg-pink-800 mr-2">Close</button>
+                            {activeTab === 'login' ? <LoginForm /> : <SignUpForm />}
+                            <button onClick={() => setShowModal(false)} className="bg-pink-700 px-3 py-2 rounded hover:bg-pink-800 mt-4">Close</button>
                         </div>
                     </div>
                 </div>

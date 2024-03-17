@@ -1,38 +1,26 @@
-import { useState } from 'react'
-//import {placeholder} from 'tailwindcss'
-
+import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
-
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
-    const [userInputData, setUserInputData] = useState ({ email: '',password: '' });
+    const [userFormData, setUserFormData] = useState({ email: '', password: '' });
     const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-
-
-
-    
-
-
     const [login, { error }] = useMutation(LOGIN_USER);
-     useEffect(() => {
 
-    if (error) {
+    useEffect(() => {
 
-      setShowAlert(true);
+        if (error) {
+            setShowAlert(true);
+        } else {
+            setShowAlert(false);
+        }
+    }, [error]);
 
-    } else {
-
-      setShowAlert(false);
-
-    }
-
-  }, [error]);
-    const handleUserInput = (event) => {
+    const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setUserInputData({ ...userInputData, [name]: value });
+        setUserFormData({ ...userFormData, [name]: value });
     };
 
     const handleFormSubmit = async (event) => {
@@ -41,71 +29,68 @@ const LoginForm = () => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
-            event.stopPropogation();
+            event.stopPropagation();
         }
 
         try {
             const { data } = await login({
-
                 variables: { ...userFormData },
-        
-              });
-        
-              console.log(data);
-        
-              Auth.login(data.login.token);
-        }   catch (err) { 
-            console.error(err);
-            setShowAlert(true); 
+            });
+            Auth.login(data.login.token);
+        } catch (error) {
+            console.error(error);
+            setShowAlert(true);
         }
 
-        setUserInputData({
+        setUserFormData({
             username: '',
             email: '',
-            password: '', 
+            password: '',
         });
     };
 
-    return ( 
-        <> 
-        <Form noValidate validated = {validated} onSubmit= {handleFormSubmit} >
-           <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-            Your username or password is incorrect, please try again. </Alert> 
-            
-            <Form.Group className="placeholder" >
-            <Form.Label html= "placeholder">Email</Form.Label>
-            <Form.Control
-             type= 'text'
-             placeholder='Your email'
-             name='email'
-             onChange={handleUserInput}
-             value={userInputData.email}
-             required
-             />
-
-             <Form.Control.Feedback type= 'invalid'>An email address is required!</Form.Control.Feedback>
-                </Form.Group>
-                
-                <Form.Group className = "placeholder"    >
-                    <Form.Label htmlFor= 'password'>Password</Form.Label>
-                    <Form.Control
-                    type='password'
-                    placeholder='Your password'
-                    name='password'
-                    onChange={handleUserInput}
-                    value={userFormData.password}
+    return (
+        <form onSubmit={handleFormSubmit} className="space-y-4">
+            {showAlert && (
+                <div className="text-red-600 bg-red-100 border border-red-400 rounded-md p-3">
+                    Your username or password is incorrect, please try again.
+                </div>
+            )}
+            <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                <input
+                    type="email"
+                    placeholder="Your email"
+                    name="email"
+                    value={userFormData.email}
+                    onChange={handleInputChange}
                     required
-                    />
-                <Form.Control.Feedback type= 'invalid'>A password is required!</Form.Control.Feedback>
-               </Form.Group>
-                <Button 
-                disabled={!userFormData.email && userFormData.password}
-                type='success'>
-                Submit</Button>
-                </Form>
-                </>
-            );
-    };
+                    autoComplete="current-email"
+                    className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                />
+            </div>
+            <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                <input
+                    type="password"
+                    placeholder="Your password"
+                    name="password"
+                    value={userFormData.password}
+                    onChange={handleInputChange}
+                    required
+                    autoComplete="current-password"
+                    className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                />
+            </div>
+            <button
+                type="submit"
+                className="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            >
+                Submit
+            </button>
+        </form>
+    );
+};
 
-    export default LoginForm; 
-    
+
+export default LoginForm;
