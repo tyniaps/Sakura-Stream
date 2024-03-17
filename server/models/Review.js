@@ -9,8 +9,9 @@ const reviewSchema = new Schema(
         
         },
         username: {
-            type: String,
-            unique: True,
+          type: String,
+          required: true,
+          unique: true,
         }
     },
   {

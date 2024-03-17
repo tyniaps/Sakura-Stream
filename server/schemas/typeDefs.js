@@ -14,7 +14,7 @@ const typeDefs = `
 
   }
 
-  type Book {
+  type Anime {
 
     animeId: ID!
 
@@ -38,7 +38,7 @@ const typeDefs = `
 
   }
 
-  input BookInput {
+  input AnimeInput {
 
     creator: [String]
 
