@@ -1,56 +1,37 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios'
-
-import { getMe, deleteAnime } from '../utils/API';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_ME, DELETE_ANIME } from '../graphql/queries';
 import { removeAnimeId } from '../utils/localStorage';
 
 const SavedAnime = () => {
-  const [userData, setUserData] = useState({});
+  const { loading, error, data } = useQuery(GET_ME);
 
-  // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
-
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-        if (!token) {
-          return false;
-        }
-
-        const response = await getMe(token);
-
-        if (!response.ok) {
-          throw new Error('something went wrong!');
-        }
-
-        const user = await response.json();
-        setUserData(user);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getUserData();
-  }, [userDataLength]);
+  const [deleteAnime] = useMutation(DELETE_ANIME, {
+    update(cache, { data: { deleteAnime } }) {
+      cache.modify({
+        fields: {
+          me(existingMeRef = {}) {
+            cache.writeQuery({
+              query: GET_ME,
+              data: {
+                me: {
+                  ...existingMeRef,
+                  savedAnime: existingMeRef.savedAnime.filter(
+                    (anime) => anime.id !== deleteAnime.id
+                  ),
+                },
+              },
+            });
+          },
+        },
+      });
+    },
+  });
 
   const handleDeleteAnime = async (animeId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
     try {
-      const response = await deleteAnime(animeId, token);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const updatedUser = await response.json();
-      setUserData(updatedUser);
+      await deleteAnime({
+        variables: { animeId },
+      });
       // upon success, remove Anime's id from localStorage
       removeAnimeId(animeId);
     } catch (err) {
@@ -58,10 +39,10 @@ const SavedAnime = () => {
     }
   };
 
-  // if data isn't here yet, say so
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
-  }
+  if (loading) return <h2>LOADING...</h2>;
+  if (error) return <h2>Error: {error.message}</h2>;
+
+  const { me: userData } = data;
 
   return (
     <>
@@ -80,13 +61,13 @@ const SavedAnime = () => {
           {userData.savedAnime.map((anime) => {
             return (
               <Col md="4">
-                <Card key={anime.animeId} border='dark'>
+                <Card key={anime.id} border='dark'>
                   {anime.image ? <Card.Img src={anime.image} alt={`The cover for ${anime.title}`} variant='top' /> : null}
                   <Card.Body>
                     <Card.Title>{anime.title}</Card.Title>
                     <p className='small'>Creator: {anime.creator}</p>
                     <Card.Text>{anime.description}</Card.Text>
-                    <Button className='btn-block btn-danger' onClick={() => handleDeleteAnime(anime.animeId)}>
+                    <Button className='btn-block btn-danger' onClick={() => handleDeleteAnime(anime.id)}>
                       Delete this Anime!
                     </Button>
                   </Card.Body>
