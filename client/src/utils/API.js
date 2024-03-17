@@ -25,17 +25,18 @@ export const getMe = (token) => {
       body: JSON.stringify(userData),
     });
   };
-  // save book data for a logged in user
+ 
   export const saveAnime = (animeData, token) => {
-    return fetch('/api/users', {
+    return fetch('/api/users/animes', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(bookData),
+      body: JSON.stringify(animeData),
     });
   };
+  
   // remove saved anime data for a logged in user
   export const deleteAnime = (animeId, token) => {
     return fetch(`/api/users/animes/${animeId}`, {
@@ -45,8 +46,7 @@ export const getMe = (token) => {
       },
     });
   };
-  // make a search to google books api
-  // https://www.googleapis.com/books/v1/volumes?q=harry+potter
-  export const searchGoogleBooks = (query) => {
-    return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+ 
+  export const searchAnime = (query) => {
+    return fetch(`https://anime-streaming.p.rapidapi.com/latest-anime=${query}`);
   };
