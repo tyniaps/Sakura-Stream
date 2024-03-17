@@ -1,9 +1,11 @@
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME, DELETE_ANIME } from '../graphql/queries';
+import { QUERY_ME } from '../utils/queries';
+import { DELETE_ANIME } from '../utils/mutations';
+//import { GET_ME, DELETE_ANIME } from '../graphql/queries';
 import { removeAnimeId } from '../utils/localStorage';
 
 const SavedAnime = () => {
-  const { loading, error, data } = useQuery(GET_ME);
+  const { loading, error, data } = useQuery(QUERY_ME);
 
   const [deleteAnime] = useMutation(DELETE_ANIME, {
     update(cache, { data: { deleteAnime } }) {
@@ -11,7 +13,7 @@ const SavedAnime = () => {
         fields: {
           me(existingMeRef = {}) {
             cache.writeQuery({
-              query: GET_ME,
+              query: QUERY_ME,
               data: {
                 me: {
                   ...existingMeRef,

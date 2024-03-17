@@ -43,3 +43,39 @@ export const ADD_USER = gql`
   }
 
 `;
+
+export const SAVE_ANIME = gql`
+  mutation saveAnime($input: AnimeData!) {
+    saveAnime(input: $input) {
+      _id 
+      username 
+      email 
+      savedAnime { 
+        animeId 
+        creator
+        image 
+        description 
+        title  
+        link 
+      }
+    }
+  }
+`;
+
+export const DELETE_ANIME = gql`
+  mutation deleteAnime($animeId: ID!) {
+    deleteAnime(animeId: $animeId) {
+      _id 
+      username 
+      email 
+      savedAnime { 
+        animeId 
+        creator
+        image 
+        description 
+        title  
+        link 
+      }
+    }
+  }
+`;
