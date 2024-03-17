@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import {placeholder} from 'tailwindcss'
 
-import { loginUser } from '../utils/API';
+import { useMutation } from '@apollo/client';
+
+import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
@@ -9,6 +11,25 @@ const LoginForm = () => {
     const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
+
+
+    
+
+
+    const [login, { error }] = useMutation(LOGIN_USER);
+     useEffect(() => {
+
+    if (error) {
+
+      setShowAlert(true);
+
+    } else {
+
+      setShowAlert(false);
+
+    }
+
+  }, [error]);
     const handleUserInput = (event) => {
         const { name, value } = event.target;
         setUserInputData({ ...userInputData, [name]: value });
@@ -24,15 +45,15 @@ const LoginForm = () => {
         }
 
         try {
-            const response = await userLoginInfo(userInputData);
+            const { data } = await login({
 
-            if(!response.ok) {
-                throw new Error('Oops! something is not right - please try again');
-            }
-
-            const { token, user } = await response.json();
-            console.log(user);
-            Auth.login(token);
+                variables: { ...userFormData },
+        
+              });
+        
+              console.log(data);
+        
+              Auth.login(data.login.token);
         }   catch (err) { 
             console.error(err);
             setShowAlert(true); 
@@ -87,3 +108,4 @@ const LoginForm = () => {
     };
 
     export default LoginForm; 
+    
