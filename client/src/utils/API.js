@@ -47,6 +47,3 @@ export const getMe = (token) => {
     });
   };
  
-  export const searchAnime = (query) => {
-    return fetch(`https://anime-streaming.p.rapidapi.com/latest-anime=${query}`);
-  };
