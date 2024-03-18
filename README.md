@@ -3,19 +3,29 @@
 ## Table of Contents
 
 * [Description](#description)
-* [Visuals](#visuals)
+* [User Story](#user-story)
 * [Technologies Used](#technologies-used)
 * [Installation](#installation)
-* [Usage](#usage)
 * [Contributing](#contributing)
+* [Visuals](#visuals)
+* [Link to Deployed Application](#link-to-deployed-application)
 * [License](#license)
 * [Contact](#contact)
 
+
 ## Description
 
+"Sakura Stream" is an Interactive MERN Stack Single-Page Application concept. 
 
-## Visuals
+The application has been designed to allow anime fans to search for anime shows. Users who sign up to the application are granted the additional privilege of being able to save any anime shows of interest to their profile.
 
+This group project allowed for us to utilise front-end web development skills within the context of react and solidify our understanding of the use of servers in back-end web development. Through our collaborative efforts, we were able to successfully create the neccessary connections between front and back-end web development concepts to create a functional MERN application. 
+
+## User Story
+
+AS AN anime enthusiast<br>
+I WANT to search for anime shows<br>
+SO THAT I can keep a list of anime shows to watch later.
 
 ## Technologies Used
 
@@ -38,16 +48,21 @@
 
 ## Installation
 
+1. Clone this repository to your local PC.<br>
 
-## Usage
+2. Open the cloned respository within the command line.<br>
 
-
-Deployed Link: 
+3. Run the following commands in the command line: "npm i", "npm run develop", "npm start".
 
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
+
+## Visuals
+
+
+## Link to Deployed Application 
 
 
 ## License
@@ -57,9 +72,17 @@ to discuss what you would like to change.
 
 This project is licensed under the MIT License - see the [MIT License](https://opensource.org/licenses/MIT) for details.
 
+
 ## Contact
 
+For any questions, please contact us:
 
-  For questions, please contact me us:
-  - Github: [viren15152](https://github.com/viren15152)
-  - Email: viren15152@gmail.com
+  - [viren15152](https://github.com/viren15152)<br>
+  - [rlobz](https://github.com/rlobz)<br>
+  - [Afroohmz](https://github.com/Afroohmz)<br>
+  - [Hwarsame7](https://github.com/Hwarsame7)<br>
+  - [mustafemohamoud](https://github.com/mustafemohamoud)<br>
+  - [duweri](https://github.com/duweri)<br>
+  - [UsaidAl](https://github.com/UsaidAl)<br>
+  - [tyniaps](https://github.com/tyniaps)
+  
