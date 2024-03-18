@@ -68,7 +68,6 @@ to discuss what you would like to change.
 ## License
 
 ![License Badge](https://img.shields.io/badge/License-MIT-yellow.svg)
-[License Link](https://opensource.org/licenses/MIT)
 
 This project is licensed under the MIT License - see the [MIT License](https://opensource.org/licenses/MIT) for details.
 
