@@ -30,6 +30,7 @@ const SearchAnime = () => {
   }, []);
 
   const fetchAnime = async () => {
+  
     const options = {
       method: 'GET',
       url: `https://anime-db.p.rapidapi.com/anime`,
@@ -39,7 +40,7 @@ const SearchAnime = () => {
         search: searchInput,
       },
       headers: {
-        'X-RapidAPI-Key': '8506ce4994msh552efb5b81afcdcp12ee4fjsn5470c8e6a866',
+        'X-RapidAPI-Key': import.meta.env.VITE_RAPIDAPI_KEY,
         'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
       }
     };
