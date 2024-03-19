@@ -51,10 +51,10 @@ export const SAVE_ANIME = gql`
       username 
       email 
       savedAnime { 
-        animeId 
+        _id 
         creator
         image 
-        description 
+        synopsis 
         title  
         link 
       }
@@ -69,10 +69,10 @@ export const DELETE_ANIME = gql`
       username 
       email 
       savedAnime { 
-        animeId 
+        _id 
         creator
         image 
-        description 
+        synopsis 
         title  
         link 
       }

@@ -4,6 +4,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
+  background-attachment: fixed; 
 }
 
 @media (max-width: 768px) {
@@ -13,4 +14,38 @@ body {
     background-position: center;
     background-repeat: no-repeat;
   }
+}
+
+.fixed.inset-0 {
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
+
+body.modal-open, html.modal-open {
+  height: 100%;
+  overflow: hidden; 
+}
+
+.motion-div-class-name {
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto; 
+}
+
+@font-face {
+  font-family: 'JapanGateDemo';
+  src: url('/Japan Gate demo.otf') format('opentype');
+}
+
+.search-title {
+  font-family: 'JapanGateDemo', sans-serif;
+}
+
+.modal-overlay {
+  z-index: 1000;
+}
+
+.pink-transparent-bg {
+  background-color: rgba(207, 127, 167, 0.9); /* This is Tailwind's pink-500 with 40% opacity */
+  color: white !important;
 }
