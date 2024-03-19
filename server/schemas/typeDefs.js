@@ -20,7 +20,7 @@ const typeDefs = `
 
     creator: [String]
 
-    synopsis: String
+    synopsis: String!
 
     image: String
 
