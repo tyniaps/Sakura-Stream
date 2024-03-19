@@ -16,11 +16,11 @@ const typeDefs = `
 
   type Anime {
 
-    animeId: ID!
+    _id: ID!
 
     creator: [String]
 
-    description: String
+    synopsis: String
 
     image: String
 
@@ -42,9 +42,9 @@ const typeDefs = `
 
     creator: [String]
 
-    description: String!
+    synopsis: String!
 
-    AnimeId: String!
+    _id: String!
 
     image: String
 
@@ -68,7 +68,7 @@ const typeDefs = `
 
     saveAnime(animeData: AnimeInput!): User
 
-    removeAnime(animeId: ID!): User
+    removeAnime(_id: ID!): User
 
   }
 

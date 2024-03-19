@@ -12,7 +12,7 @@ const AppNavbar = () => {
 
     return (
         <>
-            <nav className="bg-pink-500 bg-opacity-40 text-white p-4">
+            <nav className="bg-pink-500 bg-opacity-40 text-white p-4 search-title">
                 <div className="container mx-auto flex justify-between items-center">
                     <div className="flex items-center">
                         <img
@@ -20,7 +20,7 @@ const AppNavbar = () => {
                             alt="Sakura Stream"
                             className="w-8 h-8 sm:w-12 sm:h-12 md:w-24 md:h-24 rounded-full"
                         />
-                        <Link to="/" className="text-lg sm:text-xl md:text-2xl font-bold ml-2">SakuraStream</Link>
+                        <Link to="/" className="text-lg sm:text-xl md:text-2xl font-bold ml-2 search-title">SakuraStream</Link>
                     </div>
                     <div>
                         {Auth.loggedIn() ? (
@@ -33,7 +33,7 @@ const AppNavbar = () => {
             </nav>
 
             {showModal && (
-                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center">
+                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center modal-overlay ">
                     <div className="relative bg-white p-5 border w-96 shadow-lg rounded-md">
                         <div className="text-center">
                             <div className="flex justify-around mb-5">
@@ -49,7 +49,7 @@ const AppNavbar = () => {
                                 </button>
                             </div>
                             {activeTab === 'login' ? <LoginForm /> : <SignUpForm />}
-                            <button onClick={() => setShowModal(false)} className="bg-pink-700 px-3 py-2 rounded hover:bg-pink-800 mt-4">Close</button>
+                            <button onClick={() => setShowModal(false)} className="bg-pink-600 px-3 py-2 rounded hover:bg-pink-700 mt-4 text-white">Close</button>
                         </div>
                     </div>
                 </div>

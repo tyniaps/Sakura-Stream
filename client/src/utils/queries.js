@@ -14,13 +14,13 @@ export const QUERY_ME = gql`
 
       savedAnime {
 
-        animeId
+        _id
 
         creator
 
         image
 
-        description
+        synopsis
 
         title
 

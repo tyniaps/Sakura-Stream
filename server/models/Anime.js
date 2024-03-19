@@ -17,7 +17,7 @@ const animeSchema = new Schema(
             required: true,
             
         },
-        description: {
+        synopsis: {
             type: String,
             required: true,
         },
@@ -25,7 +25,7 @@ const animeSchema = new Schema(
             type: String,
             required: true,
         },
-        animeId: {
+        _id: {
           type: String,
           required: true,
         },

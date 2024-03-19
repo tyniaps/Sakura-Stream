@@ -92,7 +92,7 @@ const SignupForm = () => {
 
       <button
         type="submit"
-        className="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+        className="w-full p-2 bg-pink-600 text-white font-semibold rounded-md hover:bg-pink-700 focus:outline-none focus:bg-pink-600"
         disabled={!(userFormData.username && userFormData.email && userFormData.password)}
       >
         Submit
