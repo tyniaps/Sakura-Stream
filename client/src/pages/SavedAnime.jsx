@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import { DELETE_ANIME } from '../utils/mutations';
-import { removeAnimeId, saveAnimeIds } from '../utils/localStorage';
+import { removeAnimeId } from '../utils/localStorage';
 import Auth from '../utils/auth';
 import {
   Card,
@@ -13,7 +13,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-const SavedAnime = () => {
+const SavedAnimes = () => {
   const { loading, data, error } = useQuery(QUERY_ME);
   const [removeAnime] = useMutation(DELETE_ANIME, {
     onCompleted: (data) => {
@@ -46,9 +46,9 @@ const SavedAnime = () => {
         </div>
       </div>
       <div className="container mx-auto mt-8">
-        {data && data.me && data.me.savedAnime.length > 0 ? (
+        {data && data.me && data.me.savedAnimess.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {data.me.savedAnime.map((anime) => (
+            {data.me.savedAnimes.map((anime) => (
               <Card key={anime.animeId} className="mt-6 w-96 flex flex-col justify-between bg-pink-500 bg-opacity-40">
                 <CardHeader color="blue-gray" className="relative h-56">
                   <img
@@ -83,4 +83,4 @@ const SavedAnime = () => {
   );
 };
 
-export default SavedAnime;
+export default SavedAnimes;

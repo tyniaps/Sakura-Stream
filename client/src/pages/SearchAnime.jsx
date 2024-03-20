@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useMutation } from '@apollo/client';
 import { SAVE_ANIME } from '../utils/mutations';
-import { getSavedAnimeIds, saveAnimeIds } from '../utils/localStorage';
+import { getSavedAnimesIds, saveAnimeIds } from '../utils/localStorage';
 import Auth from '../utils/auth';
 import {
   Card,
@@ -16,17 +16,17 @@ import {
 const SearchAnime = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchedAnimes, setSearchedAnimes] = useState([]);
-  const [savedAnimeIds, setSavedAnimeIds] = useState(getSavedAnimeIds());
+  const [savedAnimesIds, setsavedAnimesIds] = useState(getSavedAnimesIds());
 
   const [saveAnime, { error }] = useMutation(SAVE_ANIME, {
     onCompleted: (data) => {
-      saveAnimeIds([...savedAnimeIds, data.saveAnime.animeId]);
-      setSavedAnimeIds(getSavedAnimeIds());
+      saveAnimeIds([...savedAnimesIds, data.saveAnime.animeId]);
+      setSavedAnimesIds(getSavedAnimesIds());
     },
   });
 
   useEffect(() => {
-    setSavedAnimeIds(getSavedAnimeIds());
+    setSavedAnimesIds(getSavedAnimesIds());
   }, []);
 
   const fetchAnime = async () => {
@@ -75,7 +75,7 @@ const SearchAnime = () => {
           },
         },
       });
-      setSavedAnimeIds(getSavedAnimeIds());
+      setSavedAnimesIds(getSavedAnimesIds());
     } catch (error) {
       console.error("Error saving anime:", error);
     }
@@ -130,7 +130,7 @@ const SearchAnime = () => {
               {Auth.loggedIn() && (
                 <Button
                   onClick={() => handleSaveAnime(anime._id)}
-                  disabled={savedAnimeIds.includes(anime._id)}
+                  disabled={savedAnimesIds.includes(anime._id)}
                   className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Save Anime

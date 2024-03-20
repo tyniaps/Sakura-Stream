@@ -67,7 +67,7 @@ export const DELETE_ANIME = gql`
       _id 
       username 
       email 
-      savedAnime { 
+      savedAnimes { 
         _id 
         image 
         synopsis 
