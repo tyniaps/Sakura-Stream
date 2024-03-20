@@ -1,4 +1,6 @@
-const typeDefs = `
+const { gql } = require('apollo-server-express');
+
+const typeDefs = gql`
 
   type User {
 
@@ -10,7 +12,7 @@ const typeDefs = `
 
     animeCount: Int
 
-    savedAnime: [Anime]
+    savedAnimes: [Anime]
 
   }
 
@@ -18,9 +20,7 @@ const typeDefs = `
 
     _id: ID!
 
-    creator: [String]
-
-    synopsis: String!
+    synopsis: String
 
     image: String
 
@@ -38,13 +38,11 @@ const typeDefs = `
 
   }
 
-  input AnimeInput {
+  input AnimeData {
 
-    creator: [String]
+    synopsis: String
 
-    synopsis: String!
-
-    _id: String!
+    _id: ID!
 
     image: String
 
@@ -66,7 +64,7 @@ const typeDefs = `
 
     addUser(username: String!, email: String!, password: String!): Auth
 
-    saveAnime(animeData: AnimeInput!): User
+    saveAnime(input: AnimeData!): User
 
     removeAnime(_id: ID!): User
 
