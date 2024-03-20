@@ -58,7 +58,7 @@ module.exports = {
     }
   },
   // remove an anime from `savedAnime`
-  async deleteAnime({ user, params }, res) {
+  async removeAnime({ user, params }, res) {
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
       { $pull: { savedAnime: { animeId: params.animeId } } },

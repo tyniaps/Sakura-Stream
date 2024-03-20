@@ -15,19 +15,19 @@ import {
 
 const SavedAnime = () => {
   const { loading, data, error } = useQuery(QUERY_ME);
-  const [deleteAnime] = useMutation(DELETE_ANIME, {
+  const [removeAnime] = useMutation(DELETE_ANIME, {
     onCompleted: (data) => {
-      removeAnimeId(data.deleteAnime.animeId);
+      removeAnimeId(data.removeAnime.animeId);
     },
   });
 
-  const handleDeleteAnime = async (animeId) => {
+  const handleremoveAnime = async (animeId) => {
     if (!Auth.loggedIn()) {
       console.log('Please log in to manage saved anime.');
       return;
     }
     try {
-      await deleteAnime({
+      await removeAnime({
         variables: { animeId },
       });
     } catch (err) {
@@ -64,7 +64,7 @@ const SavedAnime = () => {
                 </CardBody>
                 <CardFooter className="flex justify-between items-center">
                   <Button
-                    onClick={() => handleDeleteAnime(anime.animeId)}
+                    onClick={() => handleremoveAnime(anime.animeId)}
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                   >
                     Delete
