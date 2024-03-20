@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useMutation } from '@apollo/client';
 import { SAVE_ANIME } from '../utils/mutations';
+import { QUERY_ME } from '../utils/queries';
 import { getSavedAnimesIds, saveAnimeIds } from '../utils/localStorage';
 import Auth from '../utils/auth';
 import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Typography,
   Button,
 } from "@material-tailwind/react";
@@ -16,10 +16,11 @@ import {
 const SearchAnime = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchedAnimes, setSearchedAnimes] = useState([]);
-  const [savedAnimesIds, setsavedAnimesIds] = useState(getSavedAnimesIds());
+  const [savedAnimesIds, setSavedAnimesIds] = useState(getSavedAnimesIds());
 
   const [saveAnime, { error }] = useMutation(SAVE_ANIME, {
     onCompleted: (data) => {
+      console.log('Mutation completed with data:', data);
       saveAnimeIds([...savedAnimesIds, data.saveAnime.animeId]);
       setSavedAnimesIds(getSavedAnimesIds());
     },
@@ -59,27 +60,38 @@ const SearchAnime = () => {
     await fetchAnime();
   };
 
-  const handleSaveAnime = async (animeId) => {
+  const handleSaveAnime = async (anime) => {
+    console.log("Saving anime:", anime);
     if (!Auth.loggedIn()) {
-      console.log('Please log in to save an anime.');
+      alert('Please log in to save an anime.');
       return;
     }
-
+  
+    const animeData = {
+      _id: anime._id,
+      title: anime.title,
+      synopsis: anime.synopsis,
+      image: anime.image,
+    };
+  
     try {
       const token = Auth.getToken();
       await saveAnime({
-        variables: { animeId },
+        variables: { input: animeData },
         context: {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
+        refetchQueries: [{ query: QUERY_ME }],
       });
       setSavedAnimesIds(getSavedAnimesIds());
     } catch (error) {
       console.error("Error saving anime:", error);
     }
   };
+  
+  
 
   const handleChange = (event) => {
     setSearchInput(event.target.value);
@@ -89,7 +101,7 @@ const SearchAnime = () => {
     <>
       <div className="p-5 bg-opacity-40">
         <div className="container mx-auto">
-          <h1 className="text-3xl font-bold mb-5 search-title">Search for Anime Shows!</h1>
+          <h1 className="text-3xl font-bold mb-5 text-center search-title">Search for Anime Shows!</h1>
           <form className="flex gap-4" onSubmit={handleFormSubmit}>
             <input
               className="flex-1 p-2 rounded focus:outline-none"
@@ -129,7 +141,7 @@ const SearchAnime = () => {
             <div className="mt-auto">
               {Auth.loggedIn() && (
                 <Button
-                  onClick={() => handleSaveAnime(anime._id)}
+                  onClick={() => handleSaveAnime(anime)}
                   disabled={savedAnimesIds.includes(anime._id)}
                   className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
                 >
