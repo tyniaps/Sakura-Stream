@@ -48,7 +48,7 @@ module.exports = {
     try {
       const updatedUser = await User.findOneAndUpdate(
         { _id: user._id },
-        { $addToSet: { savedAnime: body } },
+        { $addToSet: { savedAnimes: body } },
         { new: true, runValidators: true }
       );
       return res.json(updatedUser);
@@ -61,7 +61,7 @@ module.exports = {
   async removeAnime({ user, params }, res) {
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
-      { $pull: { savedAnime: { animeId: params.animeId } } },
+      { $pull: { savedAnimes: { animeId: params.animeId } } },
       { new: true }
     );
     if (!updatedUser) {
