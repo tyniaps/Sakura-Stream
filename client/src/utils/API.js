@@ -27,7 +27,7 @@ export const getMe = (token) => {
   };
  
   export const saveAnime = (animeData, token) => {
-    return fetch('/api/users/animes', {
+    return fetch('/api/users', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

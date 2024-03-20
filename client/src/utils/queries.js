@@ -1,35 +1,18 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ME = gql`
-
   {
-
     me {
-
       _id
-
       username
-
       email
-
-      savedAnime {
-
+      savedAnimes {
         _id
-
-        creator
-
         image
-
         synopsis
-
         title
-
         link
-
       }
-
     }
-
   }
-
 `;
