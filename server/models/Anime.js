@@ -1,53 +1,26 @@
-// Anime name, number of episodes/movies , description , reviews
-const { Schema , model} = require('mongoose')
+const { Schema } = require('mongoose')
 
 const animeSchema = new Schema(
-    {
-        title: {
-            type: String,
-            required: true,
-        },
-        creator: [
-          {
-            type: String,
-          },
-        ],
-        totalEpisodes: {
-            type: Number,
-            required: true,
-            
-        },
-        synopsis: {
-            type: String,
-            required: true,
-        },
-        reviews: {
-            type: String,
-            required: true,
-        },
-        _id: {
-          type: String,
-          required: true,
-        },
-        image: {
-          type: String,
-        },
-        link: {
-          type: String,
-        },
-    },
-        
-        
-        
-        
   {
-    toJSON: {
-      virtuals: true,
+    title: {
+      type: String,
+      required: true,
     },
-    id: false,
-  }
-)
+    synopsis: {
+      type: String,
+      required: true,
+    },
+    _id: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
+    link: {
+      type: String,
 
-const Anime = model('Anime', animeSchema);
+    },
+  });
 
-module.exports = Anime;
+module.exports = animeSchema;

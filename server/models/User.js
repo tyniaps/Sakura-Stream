@@ -1,5 +1,4 @@
-// user info : email, password, favourited animes 
-
+const animeSchema = require('./Anime');
 const { Schema, model} = require('mongoose');
 const bcrypt = require('bcrypt')
 
@@ -22,21 +21,14 @@ const userSchema = new Schema(
             required: true,
             
         },
-        favouriteAnime: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'anime',
-              },
-        ]
-        
-    },
-    {
-      toJSON: {
-        virtuals: true,
+        savedAnimes: [animeSchema],
       },
-      id: false,
-    }
-); 
+      {
+        toJSON: {
+          virtuals: true,
+        },
+      }
+    );
 
 // hash user password
 userSchema.pre('save', async function (next) {
@@ -52,6 +44,10 @@ userSchema.pre('save', async function (next) {
   userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
   };
+
+  userSchema.virtual('animeCount').get(function () {
+    return this.savedanimes.length;
+  });
 
 const User = model('User', userSchema)
 
