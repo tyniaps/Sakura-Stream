@@ -1,6 +1,6 @@
-const animeSchema = require('./Anime');
 const { Schema, model} = require('mongoose');
 const bcrypt = require('bcrypt')
+const animeSchema = require('./Anime');
 
 const userSchema = new Schema(
     {
