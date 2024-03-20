@@ -50,9 +50,8 @@ export const SAVE_ANIME = gql`
       _id 
       username 
       email 
-      savedAnime { 
+      savedAnimes { 
         _id 
-        creator
         image 
         synopsis 
         title  
@@ -63,14 +62,13 @@ export const SAVE_ANIME = gql`
 `;
 
 export const DELETE_ANIME = gql`
-  mutation deleteAnime($animeId: ID!) {
-    deleteAnime(animeId: $animeId) {
+  mutation removeAnime($animeId: ID!) {
+    removeAnime(animeId: $animeId) {
       _id 
       username 
       email 
-      savedAnime { 
+      savedAnimes { 
         _id 
-        creator
         image 
         synopsis 
         title  

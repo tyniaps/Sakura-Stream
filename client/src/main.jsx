@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx';
 import SearchAnime from './pages/SearchAnime';
-import SavedAnime from './pages/SavedAnime';
+import SavedAnimes from './pages/SavedAnime';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         element: <SearchAnime />
       }, {
         path: '/saved',
-        element: <SavedAnime />
+        element: <SavedAnimes />
       }
     ]
   }

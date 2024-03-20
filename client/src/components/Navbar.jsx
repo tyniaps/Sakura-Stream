@@ -24,9 +24,12 @@ const AppNavbar = () => {
                     </div>
                     <div>
                         {Auth.loggedIn() ? (
-                            <button onClick={Auth.logout} className="bg-pink-700 px-3 py-2 rounded hover:bg-pink-800 mr-2">Logout</button>
+                            <>
+                                <Link to='/saved' className="bg-pink-600 px-3 py-2 rounded hover:bg-pink-700 text-white mr-2 inline-block">Check my Animes</Link>
+                                <button onClick={Auth.logout} className="bg-pink-700 px-3 py-2 rounded hover:bg-pink-800 text-white">Logout</button>
+                            </>
                         ) : (
-                            <button onClick={() => setShowModal(true)} className="bg-pink-600 px-3 py-2 rounded hover:bg-pink-700">Login/Sign Up</button>
+                            <button onClick={() => setShowModal(true)} className="bg-pink-600 px-3 py-2 rounded hover:bg-pink-700 text-white">Login/Sign Up</button>
                         )}
                     </div>
                 </div>
@@ -57,5 +60,6 @@ const AppNavbar = () => {
         </>
     );
 };
+
 
 export default AppNavbar;

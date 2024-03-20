@@ -27,7 +27,7 @@ export const getMe = (token) => {
   };
  
   export const saveAnime = (animeData, token) => {
-    return fetch('/api/users/animes', {
+    return fetch('/api/users', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const getMe = (token) => {
   };
   
   // remove saved anime data for a logged in user
-  export const deleteAnime = (animeId, token) => {
+  export const removeAnime = (animeId, token) => {
     return fetch(`/api/users/animes/${animeId}`, {
       method: 'DELETE',
       headers: {

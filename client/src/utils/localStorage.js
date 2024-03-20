@@ -1,8 +1,8 @@
-export const getSavedAnimeIds = () => {
-  const savedAnimeIds = localStorage.getItem('saved_animes')
+export const getSavedAnimesIds = () => {
+  const savedAnimesIds = localStorage.getItem('saved_animes')
     ? JSON.parse(localStorage.getItem('saved_animes'))
     : [];
-  return savedAnimeIds;
+  return savedAnimesIds;
 };
 export const saveAnimeIds = (animeIdArr) => {
   if (animeIdArr.length) {
@@ -12,13 +12,13 @@ export const saveAnimeIds = (animeIdArr) => {
   }
 };
 export const removeAnimeId = (animeId) => {
-  const savedAnimeIds = localStorage.getItem('saved_animes')
+  const savedAnimesIds = localStorage.getItem('saved_animes')
     ? JSON.parse(localStorage.getItem('saved_animes'))
     : null;
-  if (!savedAnimeIds) {
+  if (!savedAnimesIds) {
     return false;
   }
-  const updatedSavedAnimeIds = savedAnimeIds?.filter((savedAnimeId) => savedAnimeId !== animeId);
-  localStorage.setItem('saved_animes', JSON.stringify(updatedSavedAnimeIds));
+  const updatedSavedAnimesIds = savedAnimesIds?.filter((savedAnimesId) => savedAnimesId !== animeId);
+  localStorage.setItem('saved_animes', JSON.stringify(updatedSavedAnimesIds));
   return true;
 };

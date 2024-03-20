@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import { DELETE_ANIME } from '../utils/mutations';
-import { removeAnimeId, saveAnimeIds } from '../utils/localStorage';
+import { removeAnimeId } from '../utils/localStorage';
 import Auth from '../utils/auth';
 import {
   Card,
@@ -13,74 +13,81 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-const SavedAnime = () => {
-  const { loading, data, error } = useQuery(QUERY_ME);
-  const [deleteAnime] = useMutation(DELETE_ANIME, {
-    onCompleted: (data) => {
-      removeAnimeId(data.deleteAnime.animeId);
-    },
-  });
 
-  const handleDeleteAnime = async (animeId) => {
-    if (!Auth.loggedIn()) {
-      console.log('Please log in to manage saved anime.');
-      return;
+const SavedAnimes = () => {
+  const { loading, data } = useQuery(QUERY_ME);
+  const [removeAnime, { error: mutationError }] = useMutation(DELETE_ANIME);
+  const userData = data?.me || {};
+
+
+  const handleRemoveAnime = async (animeId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
     }
+
     try {
-      await deleteAnime({
+      const { data } = await removeAnime({
         variables: { animeId },
       });
-    } catch (err) {
-      console.error("Error deleting anime:", err);
+
+      removeAnimeId(animeId);
+    } catch (error) {
+      console.error(error);
     }
   };
 
-  if (loading) return <div className="text-center mt-5"><h2>Loading...</h2></div>;
-  if (error) return <div className="text-center text-red-600 mt-5"><h2>Error: {error.message}</h2></div>;
+  if (loading) {
+    return <h2>LOADING...</h2>;
+  }
 
   return (
     <>
-      <div className="bg-gray-800 text-white py-5">
+      <div className="p-5 bg-opacity-40">
         <div className="container mx-auto">
-          <h1 className="text-3xl font-bold text-center">Your Saved Animes</h1>
+          <h1 className="text-3xl font-bold text-center search-title">Your Saved Animes</h1>
         </div>
       </div>
-      <div className="container mx-auto mt-8">
-        {data && data.me && data.me.savedAnime.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {data.me.savedAnime.map((anime) => (
-              <Card key={anime.animeId} className="mt-6 w-96 flex flex-col justify-between bg-pink-500 bg-opacity-40">
-                <CardHeader color="blue-gray" className="relative h-56">
+      <div className="container mx-auto mt-8 text-center search-title">
+        {userData.savedAnimes?.length
+          ? `Viewing ${userData.savedAnimes.length} saved ${userData.savedAnimes.length === 1 ? 'anime' : 'animes'}:`
+          : 'You have no saved animes!'}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {userData.savedAnimes?.map((anime) => (
+            <Card key={anime._id} className="mt-6 w-96 flex flex-col justify-between bg-pink-500 bg-opacity-40">
+              <CardHeader color="blue-gray" className="relative h-56">
+   
                   <img
-                    src={anime.image || "https://via.placeholder.com/800"}
+                    src={anime.image}
                     alt={anime.title}
                     className="h-full w-full object-cover"
                   />
-                </CardHeader>
-                <CardBody>
-                  <Typography variant="h5" color="blue-gray" className="mb-2">
-                    {anime.title}
-                  </Typography>
-                </CardBody>
-                <CardFooter className="flex justify-between items-center">
-                  <Button
-                    onClick={() => handleDeleteAnime(anime.animeId)}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Delete
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center mt-5">
-            <h2>You have no saved animes!</h2>
-          </div>
-        )}
+
+              </CardHeader>
+              <CardBody>
+                <Typography variant="h5" color="blue-gray" className="mb-2">
+                  {anime.title}
+                </Typography>
+                <Typography>
+                  {anime.synopsis || "No description available."}
+                </Typography>
+              </CardBody>
+              <CardFooter className="flex justify-between items-center">
+                <Button
+                  onClick={() => handleRemoveAnime(anime._id)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Delete
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+        {mutationError && <div className="text-red-600 mt-5">Error: {mutationError.message}</div>}
       </div>
     </>
   );
 };
 
-export default SavedAnime;
+export default SavedAnimes;
