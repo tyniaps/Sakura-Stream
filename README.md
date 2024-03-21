@@ -1,5 +1,13 @@
 # Sakura-Stream
 
+Welcome to "Sakura Stream," a vibrant and engaging platform designed for anime enthusiasts who seek a dedicated space to explore and save their favorite anime shows.
+
+![screenshot of sakura1](./assets/sakura1.png)
+
+![screenshot of sakura2](./assets/sakura2.png)
+
+![screenshot of sakura3](./assets/sakura3.png)
+
 ## Table of Contents
 
 * [Description](#description)
