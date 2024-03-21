@@ -54,11 +54,11 @@ const resolvers = {
 
     },
 
-    saveAnime: async (parent, { animeData }, context) => {
+    saveAnime: async (parent, { input }, context) => {
       if (context.user) {
         const updateUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { savedAnimes: animeData } },
+          { $push: { savedAnimes: input } },
           { new: true }
         );
         return updateUser;
