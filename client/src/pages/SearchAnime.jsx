@@ -31,7 +31,7 @@ const SearchAnime = () => {
   }, []);
 
   const fetchAnime = async () => {
-  
+
     const options = {
       method: 'GET',
       url: `https://anime-db.p.rapidapi.com/anime`,
@@ -66,14 +66,14 @@ const SearchAnime = () => {
       alert('Please log in to save an anime.');
       return;
     }
-  
+
     const animeData = {
       _id: anime._id,
       title: anime.title,
       synopsis: anime.synopsis,
       image: anime.image,
     };
-  
+
     try {
       const token = Auth.getToken();
       await saveAnime({
@@ -90,8 +90,8 @@ const SearchAnime = () => {
       console.error("Error saving anime:", error);
     }
   };
-  
-  
+
+
 
   const handleChange = (event) => {
     setSearchInput(event.target.value);
@@ -123,33 +123,33 @@ const SearchAnime = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {searchedAnimes.map((anime) => (
             <Card key={anime._id} className="mt-6 w-96 flex flex-col justify-between pink-transparent-bg">
-            <CardHeader color="blue-gray" className="relative h-56">
-              <img
-                src={anime.image || "https://via.placeholder.com/800"}
-                alt={anime.title}
-                className="h-full w-full object-cover"
-              />
-            </CardHeader>
-            <CardBody>
-              <Typography variant="h5" color="blue-gray" className="mb-2">
-                {anime.title}
-              </Typography>
-                  <Typography>
+              <CardHeader color="blue-gray" className="relative h-56">
+                <img
+                  src={anime.image || "https://via.placeholder.com/800"}
+                  alt={anime.title}
+                  className="h-full w-full object-cover"
+                />
+              </CardHeader>
+              <CardBody>
+                <Typography variant="h5" color="blue-gray" className="mb-2">
+                  {anime.title}
+                </Typography>
+                <Typography>
                   {anime.synopsis || "No description available."}
-                 </Typography>
-            </CardBody>
-            <div className="mt-auto">
-              {Auth.loggedIn() && (
-                <Button
-                  onClick={() => handleSaveAnime(anime)}
-                  disabled={savedAnimesIds.includes(anime._id)}
-                  className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Save Anime
-                </Button>
-              )}
-            </div>
-          </Card>
+                </Typography>
+              </CardBody>
+              <div className="mt-auto">
+                {Auth.loggedIn() && (
+                  <Button
+                    onClick={() => handleSaveAnime(anime)}
+                    disabled={savedAnimesIds.includes(anime._id)}
+                    className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    {savedAnimesIds.includes(anime._id) ? 'Saved' : 'Save Anime'}
+                  </Button>
+                )}
+              </div>
+            </Card>
           ))}
         </div>
       </div>

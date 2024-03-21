@@ -55,7 +55,7 @@ const SavedAnimes = () => {
           : 'You have no saved animes!'}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {userData.savedAnimes?.map((anime) => (
-            <Card key={anime._id} className="mt-6 w-96 flex flex-col justify-between bg-pink-500 bg-opacity-40">
+            <Card key={anime._id} className="mt-6 w-96 flex flex-col justify-between pink-transparent-bg">
               <CardHeader color="blue-gray" className="relative h-56">
    
                   <img
