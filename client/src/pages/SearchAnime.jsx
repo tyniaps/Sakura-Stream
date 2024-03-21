@@ -63,6 +63,7 @@ const SearchAnime = () => {
   };
 
   const handleSaveAnime = async (anime) => {
+    event.stopPropagation();
     console.log("Saving anime:", anime);
     if (!Auth.loggedIn()) {
       alert('Please log in to save an anime.');
@@ -143,7 +144,7 @@ const SearchAnime = () => {
               <div className="mt-auto">
                 {Auth.loggedIn() && (
                   <Button
-                    onClick={() => handleSaveAnime(anime)}
+                    onClick={() => handleSaveAnime(e, anime)}
                     disabled={savedAnimesIds.includes(anime._id)}
                     className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
                     {savedAnimesIds.includes(anime._id) ? 'Saved' : 'Save Anime'}
