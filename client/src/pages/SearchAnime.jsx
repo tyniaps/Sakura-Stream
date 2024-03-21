@@ -12,11 +12,13 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { motion, AnimatePresence } from 'framer-motion';
 
 const SearchAnime = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchedAnimes, setSearchedAnimes] = useState([]);
   const [savedAnimesIds, setSavedAnimesIds] = useState(getSavedAnimesIds());
+  const [selectedId, setSelectedId] = useState(null);
 
   const [saveAnime, { error }] = useMutation(SAVE_ANIME, {
     onCompleted: (data) => {
@@ -122,7 +124,7 @@ const SearchAnime = () => {
       <div className="container mx-auto mt-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {searchedAnimes.map((anime) => (
-            <Card key={anime._id} className="mt-6 w-96 flex flex-col justify-between pink-transparent-bg">
+            <motion.div key={anime._id} layoutId={anime._id} onClick={() => setSelectedId(anime._id)} className="mt-6 w-96 flex flex-col justify-between pink-transparent-bg rounded-xl">
               <CardHeader color="blue-gray" className="relative h-56">
                 <img
                   src={anime.image || "https://via.placeholder.com/800"}
@@ -143,16 +145,44 @@ const SearchAnime = () => {
                   <Button
                     onClick={() => handleSaveAnime(anime)}
                     disabled={savedAnimesIds.includes(anime._id)}
-                    className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
-                  >
+                    className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
                     {savedAnimesIds.includes(anime._id) ? 'Saved' : 'Save Anime'}
                   </Button>
                 )}
               </div>
-            </Card>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </div >
+      <AnimatePresence>
+        {selectedId && (
+          <motion.div
+            layoutId={selectedId}
+            className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 p-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {searchedAnimes.find(anime => anime._id === selectedId) && (
+              <motion.div className="bg-white p-10 rounded-lg">
+
+                <motion.h5 className="text-xl mb-2">
+                  {searchedAnimes.find(anime => anime._id === selectedId).title}
+                </motion.h5>
+                <motion.p>
+                  {searchedAnimes.find(anime => anime._id === selectedId).synopsis || "No description available."}
+                </motion.p>
+                <motion.button
+                  onClick={() => setSelectedId(null)}
+                  className="mt-3 bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Close
+                </motion.button>
+              </motion.div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
