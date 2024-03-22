@@ -15,7 +15,6 @@ Welcome to "Sakura Stream," a vibrant and engaging platform designed for anime e
 * [Technologies Used](#technologies-used)
 * [Installation](#installation)
 * [Contributing](#contributing)
-* [Visuals](#visuals)
 * [Link to Deployed Application](#link-to-deployed-application)
 * [License](#license)
 * [Contact](#contact)
