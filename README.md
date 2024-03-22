@@ -1,5 +1,13 @@
 # Sakura-Stream
 
+Welcome to "Sakura Stream," a vibrant and engaging platform designed for anime enthusiasts who seek a dedicated space to explore and save their favorite anime shows.
+
+![screenshot of sakura1](./assets/sakura1.png)
+
+![screenshot of sakura2](./assets/sakura2.png)
+
+![screenshot of sakura3](./assets/sakura3.png)
+
 ## Table of Contents
 
 * [Description](#description)
@@ -7,7 +15,6 @@
 * [Technologies Used](#technologies-used)
 * [Installation](#installation)
 * [Contributing](#contributing)
-* [Visuals](#visuals)
 * [Link to Deployed Application](#link-to-deployed-application)
 * [License](#license)
 * [Contact](#contact)
@@ -62,9 +69,6 @@ SO THAT I can keep a list of anime shows to watch later.
 
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
-
-## Visuals
-
 
 ## Link to Deployed Application 
 
