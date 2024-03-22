@@ -50,14 +50,28 @@ html.modal-open {
   background-color: rgba(207, 127, 167, 0.9);
   color: white !important;
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 @media (max-width: 768px) {
   .pink-transparent-bg {
     display: flex;
-    justify-content: center;
     align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .parent-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .pink-transparent-bg {
+    margin: auto;
+    max-width: 90%; /* or whatever max width you prefer */
+    flex-grow: 1;
   }
 }

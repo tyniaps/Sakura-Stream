@@ -20,16 +20,27 @@ const AppNavbar = () => {
                             alt="Sakura Stream"
                             className="w-8 h-8 sm:w-12 sm:h-12 md:w-24 md:h-24 rounded-full"
                         />
-                        <Link to="/" className="text-lg sm:text-xl md:text-2xl font-bold ml-2 search-title">SakuraStream</Link>
+                        <Link to="/"
+                            className="text-lg sm:text-xl md:text-2xl font-bold ml-2 search-title">
+                            SakuraStream
+                        </Link>
                     </div>
                     <div>
                         {Auth.loggedIn() ? (
                             <>
-                                <Link to='/saved' className="bg-pink-600 px-3 py-2 rounded hover:bg-pink-700 text-white mr-2 inline-block">Check my Animes</Link>
-                                <button onClick={Auth.logout} className="bg-pink-700 px-3 py-2 rounded hover:bg-pink-800 text-white">Logout</button>
+                                <Link to='/saved'
+                                    className="bg-pink-600 px-2 py-1 sm:px-3 sm:py-2 rounded hover:bg-pink-700 text-white text-sm sm:text-base mr-2 inline-block">    Check my Animes
+                                </Link>
+                                <button
+                                    onClick={Auth.logout}
+                                    className="bg-pink-700 px-2 py-1 sm:px-3 sm:py-2 rounded hover:bg-pink-800 text-white text-sm sm:text-base">                                    Logout
+                                </button>
                             </>
                         ) : (
-                            <button onClick={() => setShowModal(true)} className="bg-pink-600 px-3 py-2 rounded hover:bg-pink-700 text-white">Login/Sign Up</button>
+                            <button
+                                onClick={() => setShowModal(true)}
+                                className="bg-pink-600 px-2 py-1 sm:px-3 sm:py-2 rounded hover:bg-pink-700 text-white text-sm sm:text-base">                                Login/Sign Up
+                            </button>
                         )}
                     </div>
                 </div>
@@ -52,7 +63,11 @@ const AppNavbar = () => {
                                 </button>
                             </div>
                             {activeTab === 'login' ? <LoginForm /> : <SignUpForm />}
-                            <button onClick={() => setShowModal(false)} className="bg-pink-600 px-3 py-2 rounded hover:bg-pink-700 mt-4 text-white">Close</button>
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="bg-pink-600 px-3 py-2 rounded hover:bg-pink-700 mt-4 text-white">
+                                Close
+                            </button>
                         </div>
                     </div>
                 </div>

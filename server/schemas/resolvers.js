@@ -67,11 +67,11 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    removeAnime: async (parent, { animeId }, context) => {
+    removeAnime: async (parent, { _id }, context) => {
       if (context.user) {
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pul: { savedAnimes: { animeId } } },
+          { $pull: { savedAnimes: { _id } } },
           { new: true }
         );
 
