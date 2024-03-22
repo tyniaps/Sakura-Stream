@@ -71,9 +71,6 @@ SO THAT I can keep a list of anime shows to watch later.
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
-## Visuals
-
-
 ## Link to Deployed Application 
 
 https://sakura-stream-1-wm0f.onrender.com/
