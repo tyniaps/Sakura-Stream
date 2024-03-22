@@ -62,8 +62,8 @@ export const SAVE_ANIME = gql`
 `;
 
 export const DELETE_ANIME = gql`
-  mutation removeAnime($animeId: ID!) {
-    removeAnime(animeId: $animeId) {
+  mutation removeAnime($_id: ID!) {
+    removeAnime(_id: $_id) {
       _id 
       username 
       email 

@@ -38,8 +38,8 @@ export const getMe = (token) => {
   };
   
   // remove saved anime data for a logged in user
-  export const removeAnime = (animeId, token) => {
-    return fetch(`/api/users/animes/${animeId}`, {
+  export const removeAnime = (_id, token) => {
+    return fetch(`/api/users/animes/${_id}`, {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${token}`,

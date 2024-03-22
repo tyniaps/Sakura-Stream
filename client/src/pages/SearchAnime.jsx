@@ -23,7 +23,7 @@ const SearchAnime = () => {
   const [saveAnime, { error }] = useMutation(SAVE_ANIME, {
     onCompleted: (data) => {
       console.log('Mutation completed with data:', data);
-      saveAnimeIds([...savedAnimesIds, data.saveAnime.animeId]);
+      saveAnimeIds([...savedAnimesIds, data.saveAnime._id]);
       setSavedAnimesIds(getSavedAnimesIds());
     },
   });
@@ -63,7 +63,6 @@ const SearchAnime = () => {
   };
 
   const handleSaveAnime = async (anime) => {
-    event.stopPropagation();
     console.log("Saving anime:", anime);
     if (!Auth.loggedIn()) {
       alert('Please log in to save an anime.');
@@ -88,7 +87,7 @@ const SearchAnime = () => {
         },
         refetchQueries: [{ query: QUERY_ME }],
       });
-      setSavedAnimesIds(getSavedAnimesIds());
+      setSavedAnimesIds([...savedAnimesIds, anime._id]);
     } catch (error) {
       console.error("Error saving anime:", error);
     }
@@ -100,11 +99,16 @@ const SearchAnime = () => {
     setSearchInput(event.target.value);
   };
 
+  const selectedAnime = searchedAnimes.find(anime => anime._id === selectedId);
+
+
   return (
     <>
       <div className="p-5 bg-opacity-40">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold mb-5 text-center search-title">Search for Anime Shows!</h1>
+          <p className="text-center mb-5 search-title">Click on any result to see more details and uncover its world!</p>
+          <p className="text-center mb-5 search-title">Login to save it 😊</p>
           <form className="flex gap-4" onSubmit={handleFormSubmit}>
             <input
               className="flex-1 p-2 rounded focus:outline-none"
@@ -123,9 +127,9 @@ const SearchAnime = () => {
         </div>
       </div>
       <div className="container mx-auto mt-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {searchedAnimes.map((anime) => (
-            <motion.div key={anime._id} layoutId={anime._id} onClick={() => setSelectedId(anime._id)} className="mt-6 w-96 flex flex-col justify-between pink-transparent-bg rounded-xl">
+            <motion.div key={anime._id} layoutId={anime._id} onClick={() => setSelectedId(anime._id)} className="mt-3 w-96 flex flex-col justify-between pink-transparent-bg rounded-xl">
               <CardHeader color="blue-gray" className="relative h-56">
                 <img
                   src={anime.image || "https://via.placeholder.com/800"}
@@ -134,23 +138,13 @@ const SearchAnime = () => {
                 />
               </CardHeader>
               <CardBody>
-                <Typography variant="h5" color="blue-gray" className="mb-2">
+                <Typography variant="h5" color="blue-gray" className="mb-5">
                   {anime.title}
                 </Typography>
                 <Typography>
                   {anime.synopsis || "No description available."}
                 </Typography>
               </CardBody>
-              <div className="mt-auto">
-                {Auth.loggedIn() && (
-                  <Button
-                    onClick={() => handleSaveAnime(e, anime)}
-                    disabled={savedAnimesIds.includes(anime._id)}
-                    className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
-                    {savedAnimesIds.includes(anime._id) ? 'Saved' : 'Save Anime'}
-                  </Button>
-                )}
-              </div>
             </motion.div>
           ))}
         </div>
@@ -164,21 +158,36 @@ const SearchAnime = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {searchedAnimes.find(anime => anime._id === selectedId) && (
+            {selectedAnime && (
               <motion.div className="bg-white p-10 rounded-lg">
-
                 <motion.h5 className="text-xl mb-2">
-                  {searchedAnimes.find(anime => anime._id === selectedId).title}
+                  {selectedAnime.title}
                 </motion.h5>
                 <motion.p>
-                  {searchedAnimes.find(anime => anime._id === selectedId).synopsis || "No description available."}
+                  {selectedAnime.synopsis || "No description available."}
                 </motion.p>
                 <motion.button
                   onClick={() => setSelectedId(null)}
-                  className="mt-3 bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+                  className="mt-3 bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-xl"
                 >
                   Close
                 </motion.button>
+                <a
+                  href={selectedAnime.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-xl"
+                >
+                  Visit Website
+                </a>
+                {Auth.loggedIn() && (
+                  <motion.button
+                    onClick={() => handleSaveAnime(selectedAnime)}
+                    disabled={savedAnimesIds.includes(selectedAnime._id)}
+                    className="mt-3 bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-xl">
+                    {savedAnimesIds.includes(selectedAnime._id) ? 'Saved' : 'Save Me'}
+                  </motion.button>
+                )}
               </motion.div>
             )}
           </motion.div>
