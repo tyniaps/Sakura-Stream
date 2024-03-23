@@ -8,6 +8,8 @@ Welcome to "Sakura Stream," a vibrant and engaging platform designed for anime e
 
 ![screenshot of sakura3](./assets/sakura3.png)
 
+![Screenshot of application working via deployed link](assets/sakura4.png)
+
 ## Table of Contents
 
 * [Description](#description)
